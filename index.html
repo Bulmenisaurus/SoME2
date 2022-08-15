@@ -4,26 +4,209 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <title>Elementary cellular automaton</title>
+        <title>Counting the number of one's in a binary number</title>
+        <link rel="stylesheet" href="./dist/style.min.css" />
+        <script src="./dist/index.js" defer></script>
+
+        <link
+            rel="stylesheet"
+            href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/styles/atom-one-light.min.css"
+        />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.6.0/highlight.min.js"></script>
+        <script>
+            hljs.highlightAll();
+        </script>
     </head>
     <body>
         <article>
             <header>
-                <h1>Elementary cellular automaton</h1>
+                <h1>Counting the number of ones in a binary number</h1>
             </header>
-            <p>
-                What are cellular automaton? They are alive. One common example is Conways Game of
-                life. Today we will however be looking at elemnentary cellular automaton. These
-                simple cellural automata work with rows of off an on states, which can also be
-                represented as binary ones and zeroes.
+            <p class="note">
+                Note: this article assumes you're familiar with
+                <a href="https://en.wikipedia.org/wiki/Binary_number" target="_blank"
+                    >Binary numbers</a
+                >
+                and operations that can be done with them.
             </p>
             <p>
-                One dimensional cellular automata commonly work in the following algorithm:
-                (maybe counterintuitevly momajg)
-                <ol>
-                    <li>First, define a starting row. This is commonly just a single 1</li>
-                    <li>next</li>
-                </ol>
+                In this article I will show three different ways of getting the number of ones, or
+                set bits of a binary number. To start off, you can see the expected values here:
+            </p>
+            <figure id="binary-demo">
+                <div>
+                    <input type="number" value="42" /> = <span class="binary">0</span><sub>2</sub> =
+                    <span class="ones">0</span> one(s)
+                </div>
+            </figure>
+
+            <h2>Iteration</h2>
+            <p>
+                The simplest, naive method and the one that probably comes to mind first would be to
+                iterate over every single bit of the binary number, and check if it is a one, adding
+                to the total if it is. For a number n his takes log<sub>2</sub>(n) steps.
+                <figure id="iteration">
+                    <div class="container">
+                        <div>n = <input type="number" value="1729" /></div>
+                        <div class="pad">
+                            <span class="binary">0</span><sub>2</sub>
+                            <br />
+                            nOnes = <span class="ones">0</span>
+                        </div>
+                        <div><input type="range" min="0" max="0" /></div>
+                    </div>
+                </figure>
+            </p>
+
+            <p>Implemented in JavaScript, this algorithm would look like this:</p>
+            <figure>
+                <pre><code>const countBits = (x) => {
+    let numBits = 0;
+    while (x > 0) {
+        numBits += x & 1;
+        x = x >> 1;
+    }
+    return numBits;
+}</code></pre>
+            </figure>
+            <p>
+                Each iteration it adds the last bit of the binary number to the total, and then
+                shifts the entire number down. This way, we can avoid having to calculate the length
+                of the numeber in bits.
+            </p>
+
+            <h2>Decreasing + Iteration</h2>
+            <p>
+                Believe it or not, we can do this in (usually) fewer than log<sub>2</sub>n steps!
+                This slightly trickier way of counting comes from an observation that subtracting
+                one from a number flips all the bits coming before the first set bit, as well as the
+                set bit itself.
+            </p>
+            <figure id="decrease">
+                <div>
+                    <div class="pad">
+                        68 = 1000100<sub>2</sub> <br />
+                        67 = 1000<mark>011</mark><sub>2</sub>
+                    </div>
+                    <div class="pad">
+                        101 = 1100101<sub>2</sub> <br />
+                        100 = 110010<mark>0</mark><sub>2</sub>
+                    </div>
+                </div>
+            </figure>
+            <p>
+                Combining this with the AND bitwise operation, we can see that
+                <code>(n) & (n-1)</code> will set the last set bit to zero, as taking the AND of a
+                flipped bit and the bit itself will always result in 0. This means that after doing
+                this operation, n will have one fewer set bits. Combining this all together, we can
+                repeatedly take the AND of n and n-1 and set it to n, and simply count how many
+                iterations it takes for the process to result in 0. That gives us the answer we are
+                looking for!
+            </p>
+            <figure id="decrease-demo">
+                <div class="container">
+                    <div>n = <input type="number" value="31415" /></div>
+                    <div class="pad">
+                        <span class="binary">0</span><sub>2</sub>
+                        <br />
+                        nOnes = <span class="ones">0</span>
+                    </div>
+                    <div><input type="range" min="0" max="0" /></div>
+                </div>
+            </figure>
+            <p>Implemented, this would look like</p>
+            <figure>
+                <pre><code>const countBits = (x) => {
+    let num = x;
+    let numBits = 0;
+    while (num > 0) {
+        num &= num - 1;
+        numBits += 1;
+    }
+    return numBits;
+};</code></pre>
+            </figure>
+
+            <h2>Constant time</h2>
+            <p>
+                There is a constant time solution for this. In our case, we will just show it for
+                numbers up to 2<sup>32</sup>, but it can be easily expanded with to a higher range.
+            </p>
+            <p>
+                First, lets just start with just a 3 bit number: n = a<sub>2</sub> * 2<sup>2</sup> +
+                a<sub>1</sub> * 2<sup>1</sup> + a<sub>0</sub> * 2<sup>0</sup>, where a<sub>n</sub>
+                is the <em>n</em>th digit of our number. Our task here is to just isolate the
+                coefficients a<sub>2</sub> + a<sub>1</sub> + a<sub>0</sub>. If we write out the
+                results of shifting down:
+            </p>
+            <table>
+                <tr>
+                    <td>n >> 0</td>
+                    <td>
+                        a<sub>2</sub> * 2<sup>2</sup> + a<sub>1</sub> * 2<sup>1</sup> + a<sub
+                            >0</sub
+                        >
+                        * 2<sup>0</sup>
+                    </td>
+                </tr>
+                <tr>
+                    <td>n >> 1</td>
+                    <td>
+                        a<sub>2</sub> * 2<sup>1</sup> + a<sub>1</sub> * 2<sup>0</sup> + a<sub
+                            >0</sub
+                        >
+                        * 0
+                    </td>
+                </tr>
+                <tr>
+                    <td>n >> 2</td>
+                    <td>
+                        a<sub>2</sub> * 2<sup>0</sup> + a<sub>1</sub> * 0 + a<sub>0</sub>
+                        * 0
+                    </td>
+                </tr>
+            </table>
+            <p>
+                From this, we can see why n - (n>>1) - (n>>2) is a<sub>2</sub> + a<sub>1</sub> +
+                a<sub>0</sub>: because for every single coefficient of a<sub>n</sub> *
+                2<sup>n</sup>, a<sub>n</sub> * 2<sup>n-1</sup> and a<sub>n</sub> * 2<sup>n - 2</sup>
+                ... a<sub>n</sub> * 2<sup>1</sup> is subtracted. Taking a<sub>n</sub> out of the
+                parentheses we get a<sub>n</sub>(2<sup>n</sup> - 2<sup>n-1</sup> - ... -
+                2<sup>0</sup>) which results in just a<sub>n</sub>. This works just as well for 32
+                bit numbers!
+            </p>
+            <p>In code, this would look like:</p>
+
+            <figure>
+                <pre><code>const countBits = (x) => {
+    let num = x;
+    for (let i = 1; i &lt; 32; i++) {
+        num -= (x >> i)
+    }
+    return num;
+}</code></pre>
+            </figure>
+            <p>
+                This approach can be modified slightly so that the result can be calculated without
+                any loops or conditionals!
+            </p>
+            <figure>
+                <div>
+                    <pre><code>const countBits = (x) => {
+    return x - (x >> 1) - (x >> 2) - (x >> 3) - (x >> 4) - (x >> 5) - (x >> 6) - (x >> 7) - (x >> 8) - (x >> 9) - (x >> 10) - (x >> 11) - (x >> 12) - (x >> 13) - (x >> 14) - (x >> 15) - (x >> 16) - (x >> 17) - (x >> 18) - (x >> 19) - (x >> 20) - (x >> 21) - (x >> 22) - (x >> 23) - (x >> 24) - (x >> 25) - (x >> 26) - (x >> 27) - (x >> 28) - (x >> 29) - (x >> 30) - (x >> 31);
+}</code></pre>
+                </div>
+            </figure>
+
+            <p>
+                With just 1MB and minification, you can extend this function to work with numbers up
+                to 2<sup>91918</sup>, or number with around 27000 decimal digits.
+                <a
+                    href="https://www.desmos.com/calculator/c7eavjgwmm"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    >Source</a
+                >
             </p>
         </article>
     </body>

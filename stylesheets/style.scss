@@ -3,6 +3,8 @@
         'Apple Color Emoji', 'Segoe UI Emoji';
 }
 
+// PADDING
+
 * {
     margin: 0;
     padding: 0;
@@ -13,9 +15,7 @@ article {
     max-width: calc(44em + 2em);
     padding: var(--article-pad);
     margin: auto;
-}
 
-article > * {
     font-size: 1.2em;
     line-height: 1.6em;
 }
@@ -37,26 +37,56 @@ p {
     margin-block-end: 0.67em;
 }
 
-//TODO: find correct padding
-ul {
-    padding-left: 1.5em;
-}
-
 figure {
     font-size: 1rem;
-    text-align: center;
-    margin: 0.3em;
+    display: flex;
+    justify-content: center;
+    margin: 2em 0.3em;
+
+    font-variant-numeric: tabular-nums;
 }
 
-#complexity-comparisons {
-    display: grid;
-    grid-gap: 1rem;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+// TYPOGRAPHY
 
-    figure {
-        display: flex;
-        flex-direction: column;
+input[type='number'] {
+    padding: 2px;
+    font-size: inherit;
+}
 
-        //TODO: align figcaption to bottom of figure
-    }
+mark.b {
+    background: rgba(0, 0, 255, 0.5);
+}
+
+p.note {
+    font-size: smaller;
+}
+
+// LAYOUT
+
+figure > div {
+    max-width: 100%;
+}
+
+figure > div.container {
+    max-width: 400px;
+    text-align: center;
+}
+
+figure > div.container > * {
+    text-align: left;
+}
+
+figure div.pad {
+    margin: 0.5em 0;
+}
+
+table {
+    border-collapse: collapse;
+    border: 1px solid #dee2e6;
+    width: 100%;
+}
+
+table td {
+    border: 1px solid #dee2e6;
+    padding: 0.75em;
 }
