@@ -167,13 +167,16 @@
                 </tr>
             </table>
             <p>
-                From this, we can see why n - (n>>1) - (n>>2) is a<sub>2</sub> + a<sub>1</sub> +
-                a<sub>0</sub>: because for every single coefficient of a<sub>n</sub> *
-                2<sup>n</sup>, a<sub>n</sub> * 2<sup>n-1</sup> and a<sub>n</sub> * 2<sup>n - 2</sup>
-                ... a<sub>n</sub> * 2<sup>1</sup> is subtracted. Taking a<sub>n</sub> out of the
-                parentheses we get a<sub>n</sub>(2<sup>n</sup> - 2<sup>n-1</sup> - ... -
-                2<sup>0</sup>) which results in just a<sub>n</sub>. This works just as well for 32
-                bit numbers!
+                From this, we can see that n - (n>>1) - (n>>2) is a<sub>2</sub> + a<sub>1</sub> +
+                a<sub>0</sub>: because for every single digit a<sub>n</sub> * 2<sup>n</sup>, a<sub
+                    >n</sub
+                >
+                * 2<sup>n-1</sup> , a<sub>n</sub> * 2<sup>n - 2</sup> ... a<sub>n</sub> * 2<sup
+                    >0</sup
+                >
+                is subtracted. Taking a<sub>n</sub> out of the parentheses we get
+                a<sub>n</sub>(2<sup>n</sup> - 2<sup>n-1</sup> - ... - 2<sup>0</sup>) which results
+                in just a<sub>n</sub>. This works just as well for 32 bit numbers!
             </p>
             <p>In code, this would look like:</p>
 
