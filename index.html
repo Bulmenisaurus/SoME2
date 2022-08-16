@@ -183,7 +183,7 @@
             <figure>
                 <pre><code>const countBits = (x) => {
     let num = x;
-    for (let i = 1; i &lt; 32; i++) {
+    for (let i = 1; i &lt= 32; i++) {
         num -= (x >> i)
     }
     return num;
@@ -196,7 +196,7 @@
             <figure>
                 <div>
                     <pre><code>const countBits = (x) => {
-    return x - (x >> 1) - (x >> 2) - (x >> 3) - (x >> 4) - (x >> 5) - (x >> 6) - (x >> 7) - (x >> 8) - (x >> 9) - (x >> 10) - (x >> 11) - (x >> 12) - (x >> 13) - (x >> 14) - (x >> 15) - (x >> 16) - (x >> 17) - (x >> 18) - (x >> 19) - (x >> 20) - (x >> 21) - (x >> 22) - (x >> 23) - (x >> 24) - (x >> 25) - (x >> 26) - (x >> 27) - (x >> 28) - (x >> 29) - (x >> 30) - (x >> 31);
+    return x - (x >> 1) - (x >> 2) - (x >> 3) - (x >> 4) - (x >> 5) - (x >> 6) - (x >> 7) - (x >> 8) - (x >> 9) - (x >> 10) - (x >> 11) - (x >> 12) - (x >> 13) - (x >> 14) - (x >> 15) - (x >> 16) - (x >> 17) - (x >> 18) - (x >> 19) - (x >> 20) - (x >> 21) - (x >> 22) - (x >> 23) - (x >> 24) - (x >> 25) - (x >> 26) - (x >> 27) - (x >> 28) - (x >> 29) - (x >> 30) - (x >> 31) - (x >> 31);
 }</code></pre>
                 </div>
             </figure>
@@ -205,10 +205,10 @@
                 With just 1MB and minification, you can extend this function to work with numbers up
                 to
                 <a
-                    href="https://www.desmos.com/calculator/c7eavjgwmm"
+                    href="https://www.desmos.com/calculator/diao6q5bob"
                     target="_blank"
                     rel="noopener noreferrer"
-                    >2<sup>91918</sup></a
+                    >2<sup>91917</sup></a
                 >, or number with around 27000 decimal digits. However, using a loop would probably
                 be better!
             </p>
