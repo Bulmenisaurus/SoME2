@@ -135,24 +135,24 @@ const main = async () => {
 
     const binaryInput = <Input>document.querySelector('#binary-demo input');
     const binaryOutput = <Span>document.querySelector('#binary-demo .binary');
-    const nOnesOoutput = <Span>document.querySelector('#binary-demo .ones');
+    const nOnesOutput = <Span>document.querySelector('#binary-demo .ones');
 
-    if (binaryInput === null || binaryOutput === null || nOnesOoutput === null) {
+    if (binaryInput === null || binaryOutput === null || nOnesOutput === null) {
         console.error('unable to find binary input, binaryoutput');
         return;
     }
-    binaryDemo(binaryInput, binaryOutput, nOnesOoutput);
+    binaryDemo(binaryInput, binaryOutput, nOnesOutput);
 
     const iterationBinaryInput = <Input>document.querySelector('#iteration input[type="number"]');
     const iterationBinaryOutput = <Input>document.querySelector('#iteration .binary');
-    const iterationNOnesOoutput = <Input>document.querySelector('#iteration .ones');
-    const interationStepsInput = <Input>document.querySelector('#iteration input[type="range"]');
+    const iterationNOnesOutput = <Input>document.querySelector('#iteration .ones');
+    const iterationStepsInput = <Input>document.querySelector('#iteration input[type="range"]');
 
     if (
         iterationBinaryInput === null ||
         iterationBinaryOutput === null ||
-        iterationNOnesOoutput === null ||
-        interationStepsInput === null
+        iterationNOnesOutput === null ||
+        iterationStepsInput === null
     ) {
         console.error('unable to find iteration demo elements');
         return;
@@ -161,21 +161,21 @@ const main = async () => {
     iterationDemo(
         iterationBinaryInput,
         iterationBinaryOutput,
-        iterationNOnesOoutput,
-        interationStepsInput
+        iterationNOnesOutput,
+        iterationStepsInput
     );
 
     const decreaseBinaryInput = <Input>(
         document.querySelector('#decrease-demo input[type="number"]')
     );
     const decreaseBinaryOutput = <Input>document.querySelector('#decrease-demo .binary');
-    const decreaseNOnesOoutput = <Input>document.querySelector('#decrease-demo .ones');
+    const decreaseNOnesOutput = <Input>document.querySelector('#decrease-demo .ones');
     const decreaseStepsInput = <Input>document.querySelector('#decrease-demo input[type="range"]');
 
     if (
         decreaseBinaryInput === null ||
         decreaseBinaryOutput === null ||
-        decreaseNOnesOoutput === null ||
+        decreaseNOnesOutput === null ||
         decreaseStepsInput === null
     ) {
         console.error('unable to find decrease demo elements');
@@ -185,7 +185,7 @@ const main = async () => {
     decreaseDemo(
         decreaseBinaryInput,
         decreaseBinaryOutput,
-        decreaseNOnesOoutput,
+        decreaseNOnesOutput,
         decreaseStepsInput
     );
 };
