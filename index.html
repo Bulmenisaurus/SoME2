@@ -23,7 +23,7 @@
                 <h1>Counting the number of ones in a binary number</h1>
             </header>
             <p class="note">
-                Note: this article assumes you're familiar with
+                Note: This article assumes you're familiar with
                 <a
                     href="https://en.wikipedia.org/wiki/Binary_number"
                     target="_blank"
@@ -31,6 +31,9 @@
                     >Binary numbers</a
                 >
                 and operations that can be done with them.
+            </p>
+            <p class="note">
+                Note: In this article, we will only be dealing with non-negative integers.
             </p>
             <p>
                 In this article I will show three different ways of getting the number of ones, or
@@ -80,13 +83,26 @@
                 </figure>
             </p>
 
-            <p>Implemented in JavaScript, this algorithm would look like this:</p>
+            <p>
+                Implemented in JavaScript, this algorithm would look like this:
+                <span class="note"
+                    >(note: this and all other code snippets use
+                    <a
+                        href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/BigInt"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        ><code>BigInts</code></a
+                    >
+                    in order to remain precise even with large numbers. As a result, all functions
+                    take and return <code>BigInts</code>)</span
+                >
+            </p>
             <figure>
                 <pre><code>const countBits = (x) => {
-    let numBits = 0;
-    while (x > 0) {
-        numBits += x & 1;
-        x = x >> 1;
+    let numBits = 0n;
+    while (x > 0n) {
+        numBits += x & 1n;
+        x = x >> 1n;
     }
     return numBits;
 }</code></pre>
@@ -140,10 +156,10 @@
             <figure>
                 <pre><code>const countBits = (x) => {
     let num = x;
-    let numBits = 0;
-    while (num > 0) {
-        num &= num - 1;
-        numBits += 1;
+    let numBits = 0n;
+    while (num > 0n) {
+        num &= num - 1n;
+        numBits += 1n;
     }
     return numBits;
 };</code></pre>
@@ -205,7 +221,7 @@
             <figure>
                 <pre><code>const countBits = (x) => {
     let num = x;
-    for (let i = 1; i &lt 32; i++) {
+    for (let i = 1n; i &lt 32n; i++) {
         num -= (x >> i)
     }
     return num;
@@ -218,7 +234,7 @@
             <figure>
                 <div>
                     <pre><code>const countBits = (x) => {
-    return x - (x >> 1) - (x >> 2) - (x >> 3) - (x >> 4) - (x >> 5) - (x >> 6) - (x >> 7) - (x >> 8) - (x >> 9) - (x >> 10) - (x >> 11) - (x >> 12) - (x >> 13) - (x >> 14) - (x >> 15) - (x >> 16) - (x >> 17) - (x >> 18) - (x >> 19) - (x >> 20) - (x >> 21) - (x >> 22) - (x >> 23) - (x >> 24) - (x >> 25) - (x >> 26) - (x >> 27) - (x >> 28) - (x >> 29) - (x >> 30) - (x >> 31);
+    return x - (x >> 1n) - (x >> 2n) - (x >> 3n) - (x >> 4n) - (x >> 5n) - (x >> 6n) - (x >> 7n) - (x >> 8n) - (x >> 9n) - (x >> 10n) - (x >> 11n) - (x >> 12n) - (x >> 13n) - (x >> 14n) - (x >> 15n) - (x >> 16n) - (x >> 17n) - (x >> 18n) - (x >> 19n) - (x >> 20n) - (x >> 21n) - (x >> 22n) - (x >> 23n) - (x >> 24n) - (x >> 25n) - (x >> 26n) - (x >> 27n) - (x >> 28n) - (x >> 29n) - (x >> 30n) - (x >> 31n);
 }</code></pre>
                 </div>
             </figure>
