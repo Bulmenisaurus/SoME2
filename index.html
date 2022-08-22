@@ -22,19 +22,21 @@
             <header>
                 <h1>Counting the number of ones in a binary number</h1>
             </header>
-            <p class="note">
-                Note: This article assumes you're familiar with
-                <a
-                    href="https://en.wikipedia.org/wiki/Binary_number"
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    >Binary numbers</a
-                >
-                and operations that can be done with them.
-            </p>
-            <p class="note">
-                Note: In this article, we will only be dealing with non-negative integers.
-            </p>
+            <div class="note-container">
+                <p class="note">
+                    Note: This article assumes you're familiar with
+                    <a
+                        href="https://en.wikipedia.org/wiki/Binary_number"
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        >Binary numbers</a
+                    >
+                    and operations that can be done with them.
+                </p>
+                <p class="note">
+                    Note: In this article, we will only be dealing with non-negative integers.
+                </p>
+            </div>
             <p>
                 In this article I will show three different ways of getting the number of ones, or
                 set bits of a binary number. To start off, you can see the expected values here:
@@ -215,6 +217,16 @@
                 is subtracted. Taking a<sub>n</sub> out of the parentheses we get
                 a<sub>n</sub>(2<sup>n</sup> - 2<sup>n-1</sup> - ... - 2<sup>0</sup>) which results
                 in just a<sub>n</sub>. This works just as well for 32 bit numbers!
+            </p>
+            <p>
+                <strong>Sidenote:</strong> why is this the case? Can we prove that 2<sup>n</sup> -
+                (2<sup>n-1</sup> + 2<sup>n-2</sup> + ... + 2<sup>0</sup>) = 1? Well, this can be
+                shown in a clever way! If we look the the binary of the sum of the first n-1 powers
+                of two, each power of two adds one "1" to the binary number, thus the sum is
+                111...111<sub>2</sub> with n-1 ones. If we add one to this number, we of course get
+                100..000<sub>2</sub>, where the first set bit is the the nth position, which is
+                equal to 2<sup>n</sup>! Therefore, 2<sup>n</sup> is one more than the sum of the
+                first n-1 powers of two.
             </p>
             <p>In code, this would look like:</p>
 
